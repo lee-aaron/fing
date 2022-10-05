@@ -1,0 +1,7 @@
+[workspace]
+members = [
+  "fing_client",
+  "fing_node",
+  "fing_primary",
+  "common"
+]
