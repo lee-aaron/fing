@@ -22,7 +22,7 @@ const INCOMING_MESSAGE_BUFFER_LEN: usize = 10_000;
 
 const ENDPOINT_VERIFICATION_TIMEOUT: Duration = Duration::from_secs(30);
 
-const QP2P_CLOSED_CONNECTION: &str = "The connection was closed intentionally.";
+const CLOSED_CONNECTION: &str = "The connection was closed intentionally.";
 
 type ResponseStream = Arc<Mutex<SendStream>>;
 
@@ -155,7 +155,7 @@ impl Connection {
     /// [`ConnectionError::Closed`]`(`[`Close::Local`]`)`, and data on unfinished streams is not
     /// guaranteed to be delivered.
     pub fn close(&self, reason: Option<String>) {
-        let reason = reason.unwrap_or_else(|| QP2P_CLOSED_CONNECTION.to_string());
+        let reason = reason.unwrap_or_else(|| CLOSED_CONNECTION.to_string());
         self.inner.close(0u8.into(), &reason.into_bytes());
     }
 
