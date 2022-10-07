@@ -11,4 +11,3 @@ pub enum FileConfig {
     // List
     List {},
 }
-
