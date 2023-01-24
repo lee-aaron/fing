@@ -1,0 +1,29 @@
+// DO NOT MODIFY
+syntax = "proto3";
+
+// DO NOT MODIFY
+package keeper;
+
+// Add your message and service definitions below this line
+message Empty {}
+
+enum Status {
+  READY = 0;
+  DEAD = 1;
+  JOINING = 2;
+  LEAVING = 3;
+}
+
+message BackStatus {
+  Status status = 1;
+  int32 version = 2;
+}
+
+message Dictionary {
+  map<string, BackStatus> back_status = 1;
+}
+
+service TribKeeper {
+  rpc Heartbeat(Empty) returns (Empty);
+  rpc GetBackendStatus(Empty) returns (Dictionary);
+}

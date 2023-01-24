@@ -1,0 +1,32 @@
+#!/bin/bash
+
+[ "${DEBUG:+set}" = "set" ] && set -x
+set -euo pipefail
+
+function ensure_installed() {
+  tool="$1"
+  msg="${2:-}"
+
+  if ! command -v "${tool}" &> /dev/null; then
+    if [[ "${msg:-}" ]]; then
+      echo "${msg}" >&2
+    else
+      echo "${tool} is not installed" >&2
+    fi
+    exit 1
+  fi
+}
+
+# wait_for waits up to 5 minutes for the provided command to return success.
+function wait_for() {
+  attempts=0
+  while ! eval $@ >/dev/null 2>&1; do
+    if [[ $attempts -gt 99 ]]; then
+      echo "timed out waiting for $@"
+      return 1
+    fi
+    attempts=$(($attempts + 1))
+    sleep 3
+  done
+  return 0
+}

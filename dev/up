@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. "$(dirname $0)/dev"
+
+ensure_installed cargo-watch
+
+# Temporary just run cargo directly
+# in future switch to docker-compose.yml for integrated services
+# such as mysql, redis, kafka, etc
+cargo watch --ignore 'dev/*' -x run
